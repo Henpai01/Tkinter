@@ -1,11 +1,26 @@
 import tkinter
-from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Menu, Label, ttk, Spinbox
+import os
+from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Menu, Label, ttk, Spinbox, Checkbutton
+
+# Functions
+
+def enter_data():
+    firstname = first_name_entry.get()
+    number_inputs = 1
+    list_first = []
+    for i in range(number_inputs):
+        list_first.append(firstname)
+
+    list_final = list(map(str, list_first))
+    sv = os.path.join("Tkinter", "data_entry")
+    with open(os.path.join("data_entry", "informacion.txt"), "w") as arch:
+        for name in list_final:
+            arch.write(str(name) + "\n")
 
 # Root (Screen)
 
 root = tkinter.Tk()
 root.title("Data Entry")
-root.geometry("400x380")
 
 frame = tkinter.Frame(root)
 frame.pack()
@@ -13,7 +28,7 @@ frame.pack()
 # Save User Info
 
 user_info_data = LabelFrame(frame, text= "Información de Usuario")
-user_info_data.grid(row= 0, column= 0)
+user_info_data.grid(row= 0, column= 0, padx= 20, pady= 10)
 
 first_name_label = Label(user_info_data, text= "Nombre")
 first_name_label.grid(row= 0, column= 0, padx=20, pady= 20)
@@ -42,5 +57,42 @@ nationality_combobox.grid(row= 3, column = 1)
 
 for widgets in user_info_data.winfo_children():
     widgets.grid_configure(padx= 10, pady= 5)
+
+# Save Course Info
+
+course_frame = LabelFrame(frame)
+course_frame.grid(row= 1, column= 0, sticky= "news", padx= 20, pady= 10)
+
+check_register_label = Label(course_frame, text= "Estado de registro")
+check_register = Checkbutton(course_frame, text= "Actualmente registrado")
+
+check_register_label.grid(row= 0, column= 0)
+check_register.grid(row= 1, column= 0)
+
+num_courses_label = Label(course_frame, text= "# Completar el numero de cursos")
+num_courses_spin = Spinbox(course_frame, from_= 0, to= "infinity")
+
+num_courses_label.grid(row= 0, column= 1)
+num_courses_spin.grid(row= 1, column= 1)
+
+num_semesters_label = Label(course_frame, text= "# Semestres")
+num_semesters_spin = Spinbox(course_frame, from_= 0, to= "infinity")
+num_semesters_label.grid(row= 0, column= 2)
+num_semesters_spin.grid(row= 1, column= 2)
+
+for widgets in course_frame.winfo_children():
+    widgets.grid_configure(padx= 10, pady= 5)
+
+# Terms & Condicion widget 
+terms_frame = LabelFrame(frame, text= "Terminos y Condiciones")
+terms_frame.grid(row= 2, column= 0, sticky="news", padx= 20, pady=10)
+
+terms_check = Checkbutton(terms_frame, text= "Acepto terminos y condiciones")
+terms_check.grid(row= 0, column= 0)
+
+# Button check info
+
+button = Button(frame, text= "Ingresar datos", command= enter_data)
+button.grid(row= 3, column= 0, sticky="news", padx= 20, pady= 10)
 
 root.mainloop()
