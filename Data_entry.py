@@ -8,14 +8,11 @@ def enter_data():
     firstname = first_name_entry.get()
     number_inputs = 1
     list_first = []
-    for i in range(number_inputs):
-        list_first.append(firstname)
+    list_names = [firstname for _ in range(number_inputs)]
 
-    list_final = list(map(str, list_first))
-    sv = os.path.join("Tkinter", "data_entry")
-    with open(os.path.join("data_entry", "informacion.txt"), "w") as arch:
-        for name in list_final:
-            arch.write(str(name) + "\n")
+    with open(os.path.join("C:/Users/Pepito_Windows/Desktop/Hello_World/Tkinter/data_entry/informacion.txt"), "w") as arch:
+        for name in list_names:
+            arch.write(name + "\n")
 
 # Root (Screen)
 
