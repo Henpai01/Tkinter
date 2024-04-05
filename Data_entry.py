@@ -5,14 +5,18 @@ from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Menu, Labe
 # Functions
 
 def enter_data():
+    nationality_ = nationality_combobox.get()
+    age_ = age_spin_box.get()
+    title_ = title_combo.get()
+    last_name = last_name_entry.get()
     firstname = first_name_entry.get()
     number_inputs = 1
     list_first = []
     list_names = [firstname for _ in range(number_inputs)]
 
     with open(os.path.join("C:/Users/Pepito_Windows/Desktop/Hello_World/Tkinter/data_entry/informacion.txt"), "w") as arch:
-        for name in list_names:
-            arch.write(name + "\n")
+        for data_ in list_names:
+            arch.write(f"{title_}, {firstname}, {last_name}, {age_}, {nationality_}" + "\n")
 
 # Root (Screen)
 
