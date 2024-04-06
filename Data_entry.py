@@ -1,22 +1,62 @@
 import tkinter
 import os
+import datetime
+import time 
 from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Menu, Label, ttk, Spinbox, Checkbutton
 
 # Functions
 
 def enter_data():
+    """Retrieves user input from tkinter widgets, validate data(Optional), prompt for confirmation, and appends data to file.
+
+    Raise:
+        FileNotFoundError : If the especified file is not found.
+        PermissionError : If the script lacks permission to write file to the file.
+    """
     nationality_ = nationality_combobox.get()
     age_ = age_spin_box.get()
     title_ = title_combo.get()
     last_name = last_name_entry.get()
     firstname = first_name_entry.get()
+    time_register_now = time_register()
+    check_register_info = check_info_data()
+    id_register = Id_entry.get()
     number_inputs = 1
     list_first = []
     list_names = [firstname for _ in range(number_inputs)]
 
-    with open(os.path.join("C:/Users/Pepito_Windows/Desktop/Hello_World/Tkinter/data_entry/informacion.txt"), "w") as arch:
+    
+    with open(os.path.join("C:/Users/Pepito_Windows/Desktop/Hello_World/Tkinter/data_entry/informacion.txt"), "a") as arch:
         for data_ in list_names:
-            arch.write(f"{title_}, {firstname}, {last_name}, {age_}, {nationality_}" + "\n")
+            arch.write(f"ID: {id_register}, {title_} {firstname} {last_name}, Edad: {age_}, Pais: {nationality_}, Registrado: {check_register_info}, Hora:{time_register_now}" + "\n")
+
+            # validate inputs types (adjust as needed)
+            try:
+                int(age_)
+            except ValueError_:
+                messagebox.showerror(title="Coloca un número valido!", message="Intenta nuevamente.")
+                continue
+
+# Saved exactly time
+def time_register():
+    current_time = time.time()
+    time_object = datetime.datetime.fromtimestamp(current_time)
+    formatted_time = time_object.strftime("%Y-%m-%d %H:%M:%S")
+    return formatted_time
+
+# Term and condictions text info widget
+
+def term_cond_text_info():
+    Term_conds_text = messagebox.showinfo(title= "Tèrminos y Condiciones", message="Ser mayor de 18 años")
+    return Term_conds_text
+
+# check info
+
+def check_info_data():
+    if check_register == True:
+        return ("Sí") 
+    else:
+        return ("No")
 
 # Root (Screen)
 
@@ -56,6 +96,11 @@ nationality_combobox = ttk.Combobox(user_info_data, values= ["", "Venezuela", "P
 nationality_label.grid(row= 2, column= 1)
 nationality_combobox.grid(row= 3, column = 1)
 
+Id_Label = Label(user_info_data, text= "ID")
+Id_entry = Entry(user_info_data)
+Id_Label.grid(row= 2, column= 2, padx= 20, pady= 10) 
+Id_entry.grid(row= 3, column= 2)
+
 for widgets in user_info_data.winfo_children():
     widgets.grid_configure(padx= 10, pady= 5)
 
@@ -91,9 +136,15 @@ terms_frame.grid(row= 2, column= 0, sticky="news", padx= 20, pady=10)
 terms_check = Checkbutton(terms_frame, text= "Acepto terminos y condiciones")
 terms_check.grid(row= 0, column= 0)
 
+# Term and condictions text
+
+terms_text = Button(terms_frame, text="Ver", width= 4, height= 1, command= term_cond_text_info)
+terms_text.grid(row= 0, column= 3, sticky="news", padx= 20, pady= 20)
+
 # Button check info
 
-button = Button(frame, text= "Ingresar datos", command= enter_data)
-button.grid(row= 3, column= 0, sticky="news", padx= 20, pady= 10)
+button_term_tex = Button(frame, text= "Ingresar datos", command= enter_data)
+button_term_tex.grid(rowspan= 1, column= 0, sticky="news", padx= 20, pady= 10)
+
 
 root.mainloop()
