@@ -2,7 +2,7 @@ import tkinter
 import os
 import datetime
 import time 
-from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Menu, Label, ttk, Spinbox, Checkbutton
+from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Menu, Label, ttk, Spinbox, Checkbutton, StringVar
 
 # Functions
 
@@ -19,8 +19,10 @@ def enter_data():
     last_name = last_name_entry.get()
     firstname = first_name_entry.get()
     time_register_now = time_register()
-    check_register_info = check_info_data()
+    check_register_info = register_check_function.get()
     id_register = Id_entry.get()
+
+    num_courses = num_courses_spin.get()
     number_inputs = 1
     list_first = []
     list_names = [firstname for _ in range(number_inputs)]
@@ -28,7 +30,7 @@ def enter_data():
     
     with open(os.path.join("C:/Users/Pepito_Windows/Desktop/Hello_World/Tkinter/data_entry/informacion.txt"), "a") as arch:
         for data_ in list_names:
-            arch.write(f"ID: {id_register}, {title_} {firstname} {last_name}, Edad: {age_}, Pais: {nationality_}, Registrado: {check_register_info}, Hora:{time_register_now}" + "\n")
+            arch.write(f"----------Datos----------\nID: {id_register}, {title_} {firstname} {last_name}\n Edad: {age_}, Pais: {nationality_}\n Registrado: {check_register_info}\n Numero de cursos: {num_courses}\n Hora:{time_register_now}" + "\n")
 
             # validate inputs types (adjust as needed)
             try:
@@ -50,13 +52,6 @@ def term_cond_text_info():
     Term_conds_text = messagebox.showinfo(title= "Tèrminos y Condiciones", message="Ser mayor de 18 años")
     return Term_conds_text
 
-# check info
-
-def check_info_data():
-    if check_register == True:
-        return ("Sí") 
-    else:
-        return ("No")
 
 # Root (Screen)
 
@@ -110,18 +105,20 @@ course_frame = LabelFrame(frame)
 course_frame.grid(row= 1, column= 0, sticky= "news", padx= 20, pady= 10)
 
 check_register_label = Label(course_frame, text= "Estado de registro")
-check_register = Checkbutton(course_frame, text= "Actualmente registrado")
+
+register_check_function = StringVar(value="No")
+check_register = Checkbutton(course_frame, text= "Actualmente registrado", variable= register_check_function, onvalue="Si", offvalue= "No")
 
 check_register_label.grid(row= 0, column= 0)
 check_register.grid(row= 1, column= 0)
 
-num_courses_label = Label(course_frame, text= "# Completar el numero de cursos")
+num_courses_label = Label(course_frame, text= "Numero de cursos completados")
 num_courses_spin = Spinbox(course_frame, from_= 0, to= "infinity")
 
 num_courses_label.grid(row= 0, column= 1)
 num_courses_spin.grid(row= 1, column= 1)
 
-num_semesters_label = Label(course_frame, text= "# Semestres")
+num_semesters_label = Label(course_frame, text= "Semestres")
 num_semesters_spin = Spinbox(course_frame, from_= 0, to= "infinity")
 num_semesters_label.grid(row= 0, column= 2)
 num_semesters_spin.grid(row= 1, column= 2)
