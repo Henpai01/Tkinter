@@ -2,38 +2,47 @@ import tkinter
 import os
 import openpyxl
 from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Menu, Label, ttk, Spinbox, Checkbutton, StringVar, filedialog, Menu
-from tkinter.filedialog import asksaveasfile
+from tkinter.filedialog import asksaveasfilename
 from time_register_fun import time_register
+from save_excel import save_dir
 
 # Root (Screen)
 
 root = tkinter.Tk()
 root.title("Data Entry")
+root.minsize(580, 480)
 
 frame = tkinter.Frame(root)
 frame.pack()
 
-# Menubar 
+# Hide function
 
-def donotting():
-    x = 0
+def hide_main_widget(widget):
+    widget.pack_forget()
 
-def create_menu_bar(root):
+def show_main_widget(widget): 
+    widget.pack(fill= "both", expand= "YES") 
+
+
+# Menubar
+
+def create_menu_bar(root, show_save):
     bmenu = Menu(root, background="#00ff00",
                  foreground="#ff0000",
                  activebackground="White",
                  activeforeground="Black")
 
     file_menu = Menu(bmenu, tearoff= 0)
-    file_menu.add_command(label = "Guardar", command = donotting)
-    bmenu.add_cascade(label= "Ruta", menu = file_menu)
+    file_menu.add_command(label = "Guardar", command = show_save)
+    file_menu.add_command(label = "Agregar", command = show_principal_frame)
+    bmenu.add_cascade(label= "Archivo", menu = file_menu)
     return bmenu
 
 
 # Functions
 
 def enter_data():
-    """Retrieves user input from tkinter widgets, validate data(Optional), prompt for confirmation, and appends data to file.
+    """Retrieves user input from tkinter widgets, validate data(Optional), prompt for confirmations, and appends data to file.
 
     Raise:
         FileNotFoundError : If the especified file is not found.
@@ -64,17 +73,29 @@ def enter_data():
 def save_time_exactly():
     save_time_exactly_v = time_register()
     return save_time_exactly_v
+
 # Term and condictions text info widget
 
 def term_cond_text_info():
     Term_conds_text = messagebox.showinfo(title= "Tèrminos y Condiciones", message="Ser mayor de 18 años")
     return Term_conds_text
 
+# Screen Save
+
+Frame_save = save_dir(root)
+
+def show_save():
+    show_main_widget(Frame_save)
+    frame.pack_forget()
+
+def show_principal_frame():
+    show_main_widget(frame)
+    Frame_save.pack_forget()
 
 # Save User Info
 
 user_info_data = LabelFrame(frame, text= "Información de Usuario")
-user_info_data.grid(row= 0, column= 0, padx= 20, pady= 10)
+user_info_data.grid(row= 0, column= 0, padx= 20, pady= 10, sticky= "news")
 
 first_name_label = Label(user_info_data, text= "Nombre")
 first_name_label.grid(row= 0, column= 0, padx=20, pady= 20)
@@ -164,5 +185,5 @@ terms_text.grid(row= 0, column= 3, sticky="news", padx= 20, pady= 20)
 button_term_tex = Button(frame, text= "Ingresar datos", command= enter_data)
 button_term_tex.grid(rowspan= 1, column= 0, sticky="news", padx= 20, pady= 10)
 
-root.config(menu=create_menu_bar(root))
+root.config(menu=create_menu_bar(root, show_save))
 root.mainloop()
