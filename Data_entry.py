@@ -1,8 +1,6 @@
 import tkinter
-import os
 import openpyxl
-from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Menu, Label, ttk, Spinbox, Checkbutton, StringVar, filedialog, Menu
-from tkinter.filedialog import asksaveasfilename
+from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Label, ttk, Spinbox, Checkbutton, StringVar, Menu
 from time_register_fun import time_register
 from save_excel import save_dir
 
@@ -33,9 +31,9 @@ def create_menu_bar(root, show_save):
                  activeforeground="Black")
 
     file_menu = Menu(bmenu, tearoff= 0)
-    file_menu.add_command(label = "Guardar", command = show_save)
-    file_menu.add_command(label = "Agregar", command = show_principal_frame)
-    bmenu.add_cascade(label= "Archivo", menu = file_menu)
+    file_menu.add_command(label = "Agregar Datos", command = show_principal_frame)
+    file_menu.add_command(label = "Guardar ", command = show_save)
+    bmenu.add_cascade(label= "Opciones", menu = file_menu)
     return bmenu
 
 
@@ -77,20 +75,20 @@ def save_time_exactly():
 # Term and condictions text info widget
 
 def term_cond_text_info():
-    Term_conds_text = messagebox.showinfo(title= "Tèrminos y Condiciones", message="Ser mayor de 18 años")
-    return Term_conds_text
+    term_conds_text = messagebox.showinfo(title= "Tèrminos y Condiciones", message="Ser mayor de 18 años")
+    return term_conds_text
 
 # Screen Save
 
-Frame_save = save_dir(root)
+frame_save = save_dir(root)
 
 def show_save():
-    show_main_widget(Frame_save)
+    show_main_widget(frame_save)
     frame.pack_forget()
 
 def show_principal_frame():
     show_main_widget(frame)
-    Frame_save.pack_forget()
+    frame_save.pack_forget()
 
 # Save User Info
 

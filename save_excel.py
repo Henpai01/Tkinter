@@ -1,10 +1,14 @@
 import os
 import openpyxl
 import tkinter
-from tkinter.filedialog import asksaveasfilename
+from tkinter.filedialog import asksaveasfilename, askopenfilename
 from tkinter import Tk, ttk, Label, Frame, Button, LabelFrame, Entry, INSERT
 
 def save_dir(screen):
+
+    def dir_excel():
+        direction = askopenfilename()
+        return str(dir_excel)
 
     frame = Frame(screen)
 
@@ -41,19 +45,36 @@ def save_dir(screen):
 
     # Label 
 
-    label_save = LabelFrame(frame, text= "Ruta del archivo")
+    label_save = LabelFrame(frame, text= "Ruta para crear y guardar el archivo")
     label_save.grid(row= 0, column= 0, pady= 20, padx= 10, sticky= "news")
 
-    # Entry save
-
-    entry_save_excel = Entry(label_save, width= 30)
-    entry_save_excel.grid(row= 1, column=0, padx= 20, pady= 10)
     # Button save
 
-    button_save_excel = Button(label_save, text= ".....", width= 3, command= save_xl)
-    button_save_excel.grid(row= 1, column= 1, padx= 20, pady= 10)
+    button_save_excel = Button(label_save, text= "Crear un nuevo archivo", width= 18, command= save_xl)
+    button_save_excel.grid(row= 0, column= 0, padx= 20, pady= 10)
+
+    # Label text
+
+    save_label_text = Label(label_save, text= "será archivo Excel.")
+    save_label_text.grid(row= 0, column= 1)
 
     for widgets_save in label_save.winfo_children():
+        widgets_save.grid_configure(padx= 10, pady= 5)
+
+    # Label for save
+
+    label_dir = LabelFrame(frame, text= "Buscar ruta del archivo")
+    label_dir.grid(row= 1, column= 0, pady= 15, padx= 10, sticky= "news")
+
+    # Dir save
+
+    entry_dir_save = Entry(label_dir)
+    entry_dir_save.grid(row=0, column=0, padx=20, pady=10)
+
+    button_look_save = Button(label_dir, text="Buscar ruta del archivo", command= dir_excel)
+    button_look_save.grid(row=0, column=1, padx=20, pady=10)
+
+    for widgets_save in label_dir.winfo_children():
         widgets_save.grid_configure(padx= 10, pady= 5)
 
     return frame
