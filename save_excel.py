@@ -8,7 +8,7 @@ def save_dir(screen):
 
     def dir_excel():
         direction = askopenfilename()
-        return str(dir_excel)
+        return str(direction)
 
     frame = Frame(screen)
 
@@ -69,6 +69,7 @@ def save_dir(screen):
     # Dir save
 
     entry_dir_save = Entry(label_dir)
+    entry_dir_save.insert(0, dir_excel())
     entry_dir_save.grid(row=0, column=0, padx=20, pady=10)
 
     button_look_save = Button(label_dir, text="Buscar ruta del archivo", command= dir_excel)
