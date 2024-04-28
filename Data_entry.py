@@ -1,8 +1,9 @@
+import os.path
 import tkinter
 import openpyxl
 from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Label, ttk, Spinbox, Checkbutton, StringVar, Menu
 from time_register_fun import time_register
-from save_excel import save_dir
+from save_excel import save_dir, dir_excel
 
 # Root (Screen)
 
@@ -60,11 +61,22 @@ def enter_data():
     num_courses = num_courses_spin.get()
     num_semesters_spin_data = num_semesters_spin.get()
     terms_data_check = terms_check_var.get()
-    number_inputs = 1
-    list_first = []
-    list_names = [firstname for _ in range(number_inputs)]
 
+    file_dir = dir_excel_file()
 
+    work_excel = openpyxl.load_workbook(file_dir)
+    sheet_excel = work_excel.active
+    sheet_excel.append([id_register, title_, firstname, last_name, age_, nationality_,
+                        check_register_info, num_courses, num_semesters_spin_data, terms_data_check,
+                        phone_number_data, email_data, time_register_now])
+    work_excel.save(file_dir)
+    return enter_data
+
+# Dir excel
+
+def dir_excel_file():
+    dir_str = dir_excel()
+    return dir_str
 
 # Saved exactly time
 
@@ -151,8 +163,8 @@ check_register = Checkbutton(course_frame, text= "Actualmente registrado", varia
 check_register_label.grid(row= 0, column= 0)
 check_register.grid(row= 1, column= 0)
 
-num_courses_label = Label(course_frame, text= "Numero de cursos completados")
-num_courses_spin = Spinbox(course_frame, from_= 0, to= "infinity")
+num_courses_label = Label(course_frame, text="Numero de cursos completados")
+num_courses_spin = Spinbox(course_frame, from_=0, to= "infinity")
 
 num_courses_label.grid(row= 0, column= 1)
 num_courses_spin.grid(row= 1, column= 1)

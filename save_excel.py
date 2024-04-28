@@ -2,20 +2,35 @@ import os
 import openpyxl
 import tkinter
 from tkinter.filedialog import asksaveasfilename, askopenfilename
-from tkinter import Tk, ttk, Label, Frame, Button, LabelFrame, Entry, INSERT
+from tkinter import Tk, ttk, Label, Frame, Button, LabelFrame, Entry, messagebox
+
+
+def dir_excel():
+    try:
+        direction = askopenfilename(title= "Seleccionar un archivo Excel",
+                                    filetypes=[("Excel Files", "*.xlsx")])
+        if direction:
+            print(f"Usar el archivo seleccionado: {direction}")
+            return direction
+        else:
+            messagebox.showerror(title= "Error",
+                                 message= "Elige un archivo excel para continuar")
+            return None
+
+    except Exception as ex:
+        print(f"Error al seleccionar el archivo: {ex}")
+        return None
 
 def save_dir(screen):
 
-    def dir_excel():
-        direction = askopenfilename()
-        return str(direction)
 
     frame = Frame(screen)
 
     def save_xl():
         
         files = [('Excel', '*.xlsx')] 
-        file_excel = asksaveasfilename(filetypes = files, defaultextension = files)
+        file_excel = asksaveasfilename(filetypes = files,
+                                       defaultextension = files)
 
 
         if file_excel:
@@ -35,7 +50,7 @@ def save_dir(screen):
             heading = ["ID", "Titulo", "Nombre", "Apellido", "Edad", "Pais",
                         "Registrado", "Semestres", "Numero de Semetres",
                         "Terminos & Condiciones", "Numero de Telefono", "Email",
-                        "Tiempo"]
+                        "Hora"]
             sheet.append(heading)
             work_book_excel.save(file_excel)
 
@@ -69,7 +84,7 @@ def save_dir(screen):
     # Dir save
 
     entry_dir_save = Entry(label_dir)
-    entry_dir_save.insert(0, dir_excel)
+    entry_dir_save.insert(0, dir_excel())
     entry_dir_save.grid(row=0, column=0, padx=20, pady=10)
 
     button_look_save = Button(label_dir, text="Buscar ruta del archivo", command= dir_excel)
@@ -79,6 +94,3 @@ def save_dir(screen):
         widgets_save.grid_configure(padx= 10, pady= 5)
 
     return frame
-    
-
-
