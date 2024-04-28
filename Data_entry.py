@@ -3,7 +3,7 @@ import tkinter
 import openpyxl
 from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Label, ttk, Spinbox, Checkbutton, StringVar, Menu
 from time_register_fun import time_register
-from save_excel import save_dir, dir_excel
+from save_excel import save_dir, dir_excel, get_file
 
 # Root (Screen)
 
@@ -62,7 +62,7 @@ def enter_data():
     num_semesters_spin_data = num_semesters_spin.get()
     terms_data_check = terms_check_var.get()
 
-    file_dir = dir_excel_file()
+    file_dir = get_file()
 
     work_excel = openpyxl.load_workbook(file_dir)
     sheet_excel = work_excel.active
@@ -71,6 +71,9 @@ def enter_data():
                         phone_number_data, email_data, time_register_now])
     work_excel.save(file_dir)
     return enter_data
+
+
+
 
 # Dir excel
 

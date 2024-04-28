@@ -4,6 +4,11 @@ import tkinter
 from tkinter.filedialog import asksaveasfilename, askopenfilename
 from tkinter import Tk, ttk, Label, Frame, Button, LabelFrame, Entry, messagebox
 
+archive_full_path = ""
+
+def get_file():
+    global archive_full_path
+    return archive_full_path
 
 def dir_excel():
     try:
@@ -20,6 +25,15 @@ def dir_excel():
     except Exception as ex:
         print(f"Error al seleccionar el archivo: {ex}")
         return None
+
+def select_dir(entry: Entry):
+    global archive_full_path
+    file_name = dir_excel()
+    if file_name:
+        archive_full_path = file_name
+        entry.delete(0, "end")
+        entry.insert(0, file_name)
+
 
 def save_dir(screen):
 
@@ -84,10 +98,9 @@ def save_dir(screen):
     # Dir save
 
     entry_dir_save = Entry(label_dir)
-    entry_dir_save.insert(0, dir_excel())
     entry_dir_save.grid(row=0, column=0, padx=20, pady=10)
 
-    button_look_save = Button(label_dir, text="Buscar ruta del archivo", command= dir_excel)
+    button_look_save = Button(label_dir, text="Buscar ruta del archivo", command= lambda: select_dir(entry_dir_save))
     button_look_save.grid(row=0, column=1, padx=20, pady=10)
 
     for widgets_save in label_dir.winfo_children():
