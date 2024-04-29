@@ -1,6 +1,5 @@
 import os
 import openpyxl
-import tkinter
 from tkinter.filedialog import asksaveasfilename, askopenfilename
 from tkinter import Tk, ttk, Label, Frame, Button, LabelFrame, Entry, messagebox
 

@@ -1,5 +1,3 @@
-import os.path
-import tkinter
 import openpyxl
 from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Label, ttk, Spinbox, Checkbutton, StringVar, Menu
 from time_register_fun import time_register
@@ -7,11 +5,11 @@ from save_excel import save_dir, dir_excel, get_file
 
 # Root (Screen)
 
-root = tkinter.Tk()
+root = Tk()
 root.title("Data Entry")
 root.minsize(580, 480)
 
-frame = tkinter.Frame(root)
+frame = Frame(root)
 frame.pack()
 
 # Hide function
