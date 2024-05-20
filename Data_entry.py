@@ -21,10 +21,8 @@ root.iconphoto(False, icon_)
 def hide_main_widget(widget):
     widget.pack_forget()
 
-
 def show_main_widget(widget):
     widget.pack(fill="both", expand="YES")
-
 
 # Menubar
 
@@ -40,7 +38,6 @@ def create_menu_bar(root, show_save):
     bmenu.add_cascade(label="Opciones", menu=file_menu)
     return bmenu
 
-
 # Functions
 
 def enter_data():
@@ -50,7 +47,7 @@ def enter_data():
         FileNotFoundError : If the especified file is not found.
         PermissionError : If the script lacks permission to write file to the file.
     """
-    # Toma de datos desde la linea 50 hasta la linea 63 en variables
+    # Data collection from line 53 to line 66
     title_ = title_combo.get()
     firstname = first_name_entry.get()
     last_name = last_name_entry.get()
@@ -61,10 +58,11 @@ def enter_data():
     id_register = Id_entry.get()
     phone_number_data = phone_number_entry.get()
     email_data = email_entry.get()
-
     num_courses = num_courses_spin.get()
     num_semesters_spin_data = num_semesters_spin.get()
     terms_data_check = terms_check_var.get()
+
+    # Work on Excel File
 
     file_dir = get_file()
 
@@ -76,20 +74,17 @@ def enter_data():
     work_excel.save(file_dir)
     return enter_data
 
-
 # Dir excel
 
 def dir_excel_file():
     dir_str = dir_excel()
     return dir_str
 
-
 # Saved exactly time
 
 def save_time_exactly():
     save_time_exactly_v = time_register()
     return save_time_exactly_v
-
 
 # Term and condictions text info widget
 
@@ -98,20 +93,17 @@ def term_cond_text_info():
     return term_conds_text
 
 
-# Screen Save
+# Screen Save Excel files
 
 frame_save = save_dir(root)
-
 
 def show_save():
     show_main_widget(frame_save)
     frame.pack_forget()
 
-
 def show_principal_frame():
     show_main_widget(frame)
     frame_save.pack_forget()
-
 
 # Save User Info
 
