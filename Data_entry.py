@@ -1,7 +1,7 @@
 import openpyxl
 from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Label, ttk, Spinbox, Checkbutton, StringVar, Menu, PhotoImage
-from time_register_fun import time_register
-from save_excel import save_dir, dir_excel, get_file
+from Tkinter.Time_function.time_register_fun import time_register
+from Tkinter.Excel_functions.save_excel import save_dir, dir_excel, get_file
 
 # Root (Screen)
 
