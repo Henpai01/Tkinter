@@ -1,3 +1,5 @@
+import tkinter
+
 import openpyxl
 from tkinter import Tk, Entry, Button, Frame, LabelFrame, messagebox, Label, ttk, Spinbox, Checkbutton, StringVar, Menu, PhotoImage
 from Tkinter.Time_function.time_register_fun import time_register
@@ -34,7 +36,8 @@ def create_menu_bar(root, show_save):
 
     file_menu = Menu(bmenu, tearoff=0)
     file_menu.add_command(label="Agregar Datos", command=show_principal_frame)
-    file_menu.add_command(label="Guardar ", command=show_save)
+    file_menu.add_command(label="Guardar", command=show_save)
+    file_menu.add_command(label="Buscar Usuario", command=find_data)
     bmenu.add_cascade(label="Opciones", menu=file_menu)
     return bmenu
 
@@ -74,7 +77,12 @@ def enter_data():
     work_excel.save(file_dir)
     return enter_data
 
-# Dir excel
+# Find data & return
+
+def find_data():
+    pass
+
+# Direction Excel & Save file
 
 def dir_excel_file():
     dir_str = dir_excel()
@@ -115,8 +123,8 @@ first_name_label.grid(row=0, column=0, padx=20, pady=20)
 last_name_label = Label(user_info_data, text="Apellido")
 last_name_label.grid(row=0, column=1, padx=20, pady=20)
 
-first_name_entry = Entry(user_info_data, width=20)
-last_name_entry = Entry(user_info_data, width=20)
+first_name_entry = Entry(user_info_data, width=24)
+last_name_entry = Entry(user_info_data, width=24)
 first_name_entry.grid(row=1, column=0)
 last_name_entry.grid(row=1, column=1)
 
@@ -126,7 +134,7 @@ title.grid(row=0, column=2)
 title_combo.grid(row=1, column=2)
 
 age_label = Label(user_info_data, text="Edad")
-age_spin_box = Spinbox(user_info_data, from_=18, to=110, width=20)
+age_spin_box = Spinbox(user_info_data, from_=18, to=110, width=23)
 age_label.grid(row=2, column=0)
 age_spin_box.grid(row=3, column=0)
 
@@ -142,50 +150,50 @@ nationality_label.grid(row=2, column=1)
 nationality_combobox.grid(row=3, column=1)
 
 Id_Label = Label(user_info_data, text="ID")
-Id_entry = Entry(user_info_data, width=20)
+Id_entry = Entry(user_info_data, width=24)
 Id_Label.grid(row=2, column=2, padx=20, pady=10)
 Id_entry.grid(row=3, column=2)
 
 phone_number_label = Label(user_info_data, text="Telefono")
-phone_number_entry = Entry(user_info_data, width=20)
+phone_number_entry = Entry(user_info_data, width=24)
 phone_number_label.grid(row=4, column=0, padx=20, pady=10)
 phone_number_entry.grid(row=5, column=0)
 
 email_label = Label(user_info_data, text="Correo Electronico")
-email_entry = Entry(user_info_data, width=20)
+email_entry = Entry(user_info_data, width=24)
 email_label.grid(row=4, column=1, padx=20, pady=10)
 email_entry.grid(row=5, column=1)
+
+find_user = Button(user_info_data,text="Buscar Usuario", command=find_data)
+find_user.grid_configure(row=4, column=2, rowspan=2, sticky="news", ipady= 10)
 
 for widgets in user_info_data.winfo_children():
     widgets.grid_configure(padx=10, pady=5)
 
 # Save Course Info
 
-course_frame = LabelFrame(frame)
-course_frame.grid(row=1, column=0, sticky="news", padx=20, pady=10)
-
-check_register_label = Label(course_frame, text="Estado de registro")
+course_frame = LabelFrame(frame, text="Estado de registro")
+course_frame.grid_configure(row=1, column=0, sticky="news", padx=20, pady=10)
+course_frame.columnconfigure(0, weight=3)
 
 register_check_function = StringVar(value="No")
 check_register = Checkbutton(course_frame, text="Actualmente registrado", variable=register_check_function,
                              onvalue="Si", offvalue="No")
+check_register.grid_configure(row=0, column=0, rowspan=2)
 
-check_register_label.grid(row=0, column=0)
-check_register.grid(row=1, column=0)
-
-num_courses_label = Label(course_frame, text="Numero de cursos completados")
-num_courses_spin = Spinbox(course_frame, from_=0, to= "infinity")
+num_courses_label = Label(course_frame, text="Cursos completados")
+num_courses_spin = Spinbox(course_frame, from_=0, to="infinity")
 
 num_courses_label.grid(row=0, column=1)
 num_courses_spin.grid(row=1, column=1)
 
 num_semesters_label = Label(course_frame, text= "Semestres")
-num_semesters_spin = Spinbox(course_frame, from_=0, to= "infinity")
+num_semesters_spin = Spinbox(course_frame, from_=0, to="infinity")
 num_semesters_label.grid(row=0, column=2)
 num_semesters_spin.grid(row=1, column=2)
 
 for widgets in course_frame.winfo_children():
-    widgets.grid_configure(padx=10, pady=5)
+    widgets.grid_configure(padx=6, pady=10)
 
 # Terms & Condicion widget 
 terms_frame = LabelFrame(frame, text="Terminos y Condiciones")
